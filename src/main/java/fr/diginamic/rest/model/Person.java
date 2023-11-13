@@ -3,8 +3,6 @@ package fr.diginamic.rest.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import fr.diginamic.rest.validation.NameFormat;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -39,7 +37,6 @@ public class Person {
 	private String lastname;
 	
 	@ManyToMany(cascade = CascadeType.REMOVE)
-	@JsonIgnore
 	private List<Animal> animals = new ArrayList<>();
 	
 	public Person() {}

@@ -41,6 +41,7 @@ public class SpeciesController {
 			return new ResponseEntity<>("Erreur : ID renseigné lors de la création !", HttpStatus.BAD_REQUEST);
 		}
 		this.speciesService.create(speciesItem);
+		//this.speciesService.create(null);
 		return new ResponseEntity<>("L'espèce " + speciesItem + " a bien été créée !", HttpStatus.OK);
 	}
 	
