@@ -3,6 +3,8 @@ package fr.diginamic.rest.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,13 +36,21 @@ public class AnimalController {
 	}
 	
 	@PostMapping
-	public Animal createAnimal(@Valid @RequestBody Animal animalItem) {
-		return this.animalService.create(animalItem);
+	public ResponseEntity<Object> createAnimal(@Valid @RequestBody Animal animalItem) {
+		if(animalItem.getId() != null) {
+			return new ResponseEntity<>("Erreur : ID renseigné lors de la création !", HttpStatus.BAD_REQUEST);
+		}
+		this.animalService.create(animalItem);
+		return new ResponseEntity<>("L'animal " + animalItem + " a bien été créé !", HttpStatus.OK);
 	}
 	
 	@PutMapping
-	public Animal updateAnimal(@Valid @RequestBody Animal animalItem) {
-		return this.animalService.create(animalItem);
+	public ResponseEntity<Object> updateAnimal(@Valid @RequestBody Animal animalItem) {
+		if(animalItem.getId() == null || animalItem.getId() < 0) {
+			return new ResponseEntity<>("Erreur : ID renseigné invalide !", HttpStatus.BAD_REQUEST);
+		}
+		this.animalService.create(animalItem);
+		return new ResponseEntity<>("L'animal " + animalItem + " a bien été modifié !", HttpStatus.OK);
 	}
 	
 	@DeleteMapping

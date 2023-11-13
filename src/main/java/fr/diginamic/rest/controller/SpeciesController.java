@@ -3,6 +3,8 @@ package fr.diginamic.rest.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,13 +36,21 @@ public class SpeciesController {
 	}
 	
 	@PostMapping
-	public Species createSpecies(@Valid @RequestBody Species speciesItem) {
-		return this.speciesService.create(speciesItem);
+	public ResponseEntity<Object> createSpecies(@Valid @RequestBody Species speciesItem) {
+		if(speciesItem.getId() != null) {
+			return new ResponseEntity<>("Erreur : ID renseigné lors de la création !", HttpStatus.BAD_REQUEST);
+		}
+		this.speciesService.create(speciesItem);
+		return new ResponseEntity<>("L'espèce " + speciesItem + " a bien été créée !", HttpStatus.OK);
 	}
 	
 	@PutMapping
-	public Species updateSpecies(@Valid @RequestBody Species speciesItem) {
-		return this.speciesService.create(speciesItem);
+	public ResponseEntity<Object> updateSpecies(@Valid @RequestBody Species speciesItem) {
+		if(speciesItem.getId() == null || speciesItem.getId() < 0) {
+			return new ResponseEntity<>("Erreur : ID renseigné invalide !", HttpStatus.BAD_REQUEST);
+		}
+		this.speciesService.create(speciesItem);
+		return new ResponseEntity<>("L'espèce " + speciesItem + " a bien été modifiée !", HttpStatus.OK);
 	}
 	
 	@DeleteMapping
