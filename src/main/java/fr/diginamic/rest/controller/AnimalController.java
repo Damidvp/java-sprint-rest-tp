@@ -3,6 +3,7 @@ package fr.diginamic.rest.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,13 +34,18 @@ public class AnimalController {
 	}
 	
 	@PostMapping
-	public Animal createPerson(@Valid @RequestBody Animal animalItem) {
+	public Animal createAnimal(@Valid @RequestBody Animal animalItem) {
 		return this.animalService.create(animalItem);
 	}
 	
 	@PutMapping
-	public Animal updatePerson(@Valid @RequestBody Animal animalItem) {
+	public Animal updateAnimal(@Valid @RequestBody Animal animalItem) {
 		return this.animalService.create(animalItem);
+	}
+	
+	@DeleteMapping
+	public void deleteAnimal(@Valid @RequestBody Animal animalItem) {
+		this.animalService.delete(animalItem);
 	}
 	
 }
