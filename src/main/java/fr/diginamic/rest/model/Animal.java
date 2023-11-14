@@ -95,4 +95,11 @@ public class Animal {
 		this.species = species;
 	}
 
+	public List<Person> getPerson() {
+		return person;
+	}
+
+	public void setPerson(List<Person> person) {
+		this.person = person;
+	}
 }

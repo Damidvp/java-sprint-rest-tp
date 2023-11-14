@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
+import fr.diginamic.rest.dto.ErrorDto;
+import fr.diginamic.rest.dto.InvalidEntityErrorDto;
+
 @RestControllerAdvice
 public class ExceptionHandlerControllerAdvice {
 	

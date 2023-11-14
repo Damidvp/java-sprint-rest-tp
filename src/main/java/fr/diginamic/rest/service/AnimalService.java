@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import fr.diginamic.rest.dto.AnimalDto;
+import fr.diginamic.rest.mappers.AnimalDtoMapper;
 import fr.diginamic.rest.model.Animal;
 import fr.diginamic.rest.repository.AnimalRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -17,6 +19,9 @@ public class AnimalService {
 	
 	@Autowired
 	AnimalRepository animalRepo;
+	
+	@Autowired
+	private AnimalDtoMapper animalDtoMapper;
 	
 	public Animal create(@Valid Animal animalToCreate) {
 		return animalRepo.save(animalToCreate);
@@ -30,8 +35,9 @@ public class AnimalService {
 		return this.animalRepo.findAll();
 	}
 	
-	public Page<Animal> findPage(Pageable pageable){
-		return this.animalRepo.findAll(pageable);
+	public Page<AnimalDto> findPage(Pageable pageable){
+		Page<Animal> pageAnimals = this.animalRepo.findAll(pageable);
+		return pageAnimals.map((animal) -> animalDtoMapper.toDto(animal));
 	}
 	
 	public Animal findById(Integer id) {

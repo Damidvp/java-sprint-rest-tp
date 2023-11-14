@@ -1,4 +1,4 @@
-package fr.diginamic.rest.exceptions;
+package fr.diginamic.rest.dto;
 
 import java.time.LocalDateTime;
 

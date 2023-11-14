@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.diginamic.rest.dto.PersonDto;
 import fr.diginamic.rest.exceptions.EntityToCreateHasAnIdException;
 import fr.diginamic.rest.exceptions.EntityToUpdateHasNoIdException;
 import fr.diginamic.rest.model.Person;
@@ -38,7 +39,7 @@ public class PersonController {
 	}
 	
 	@GetMapping("/pages")
-	public Page<Person> findPage(
+	public Page<PersonDto> findPage(
 			@RequestParam(value = "pageNumber", defaultValue = "0") Integer pageNumber,
 			@RequestParam(value = "pageSize", defaultValue = "20") Integer pageSize){
 		return personService.findPage(PageRequest.of(pageNumber, pageSize));

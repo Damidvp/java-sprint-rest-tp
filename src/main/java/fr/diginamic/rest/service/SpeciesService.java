@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import fr.diginamic.rest.model.Animal;
 import fr.diginamic.rest.model.Species;
 import fr.diginamic.rest.repository.SpeciesRepository;
 import jakarta.persistence.EntityNotFoundException;

@@ -7,7 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import fr.diginamic.rest.model.Animal;
+import fr.diginamic.rest.dto.PersonDto;
+import fr.diginamic.rest.mappers.PersonDtoMapper;
 import fr.diginamic.rest.model.Person;
 import fr.diginamic.rest.repository.PersonRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -18,6 +19,9 @@ public class PersonService {
 
 	@Autowired
 	PersonRepository personRepo;
+	
+	@Autowired
+	private PersonDtoMapper personDtoMapper;
 	
 	public Person create(@Valid Person personToCreate) {
 		return personRepo.save(personToCreate);
@@ -31,8 +35,9 @@ public class PersonService {
 		return this.personRepo.findAll();
 	}
 	
-	public Page<Person> findPage(Pageable pageable){
-		return this.personRepo.findAll(pageable);
+	public Page<PersonDto> findPage(Pageable pageable){
+		Page<Person> pagePersons = this.personRepo.findAll(pageable);
+		return pagePersons.map((person) -> personDtoMapper.toDto(person));
 	}
 	
 	public Person findById(Integer id) {
