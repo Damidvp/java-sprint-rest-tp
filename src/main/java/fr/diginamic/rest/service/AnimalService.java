@@ -1,5 +1,7 @@
 package fr.diginamic.rest.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
@@ -24,7 +26,11 @@ public class AnimalService {
 		return animalRepo.save(updatedAnimal);
 	}
 	
-	public Page<Animal> findAll(Pageable pageable){
+	public List<Animal> findAll(){
+		return this.animalRepo.findAll();
+	}
+	
+	public Page<Animal> findPage(Pageable pageable){
 		return this.animalRepo.findAll(pageable);
 	}
 	

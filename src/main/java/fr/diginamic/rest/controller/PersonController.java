@@ -1,7 +1,10 @@
 package fr.diginamic.rest.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,9 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.diginamic.rest.model.Person;
+import fr.diginamic.rest.model.Species;
 import fr.diginamic.rest.service.PersonService;
 import jakarta.validation.Valid;
 
@@ -26,8 +31,15 @@ public class PersonController {
 	private PersonService personService;
 	
 	@GetMapping
-	public Page<Person> listPersons() {
-		return personService.findAll(Pageable.ofSize(20));
+	public List<Person> listPersons() {
+		return personService.findAll();
+	}
+	
+	@GetMapping("/pages")
+	public Page<Person> findPage(
+			@RequestParam(value = "pageNumber", defaultValue = "0") Integer pageNumber,
+			@RequestParam(value = "pageSize", defaultValue = "20") Integer pageSize){
+		return personService.findPage(PageRequest.of(pageNumber, pageSize));
 	}
 	
 	@GetMapping("/{id}")

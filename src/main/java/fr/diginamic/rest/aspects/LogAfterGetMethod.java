@@ -15,7 +15,9 @@ public class LogAfterGetMethod {
 	
 	@After("execution(* fr.diginamic.rest..*.*get*(..))")
 	public void print(JoinPoint joinPoint) {
-		logger.info("Getter executé par la méthode {}", joinPoint.getSignature().getName());
+		logger.info("Getter executé par la méthode {} de la classe {}", 
+				joinPoint.getSignature().getName(),
+				joinPoint.getTarget().getClass().getSimpleName());
 	}
 	
 }

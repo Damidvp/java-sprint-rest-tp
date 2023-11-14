@@ -1,10 +1,13 @@
 package fr.diginamic.rest.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import fr.diginamic.rest.model.Animal;
 import fr.diginamic.rest.model.Person;
 import fr.diginamic.rest.repository.PersonRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -24,7 +27,11 @@ public class PersonService {
 		return personRepo.save(updatedPerson);
 	}
 	
-	public Page<Person> findAll(Pageable pageable){
+	public List<Person> findAll(){
+		return this.personRepo.findAll();
+	}
+	
+	public Page<Person> findPage(Pageable pageable){
 		return this.personRepo.findAll(pageable);
 	}
 	

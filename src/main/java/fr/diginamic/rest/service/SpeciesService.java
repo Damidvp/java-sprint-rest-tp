@@ -1,10 +1,13 @@
 package fr.diginamic.rest.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import fr.diginamic.rest.model.Animal;
 import fr.diginamic.rest.model.Species;
 import fr.diginamic.rest.repository.SpeciesRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -24,7 +27,11 @@ public class SpeciesService {
 		return speciesRepo.save(updatedSpecies);
 	}
 	
-	public Page<Species> findAll(Pageable pageable){
+	public List<Species> findAll(){
+		return this.speciesRepo.findAll();
+	}
+	
+	public Page<Species> findPage(Pageable pageable){
 		return this.speciesRepo.findAll(pageable);
 	}
 	

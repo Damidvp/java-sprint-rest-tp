@@ -15,7 +15,9 @@ public class LogBeforeEnteringMethod {
 	
 	@Before("execution(public * fr.diginamic.rest.controller..*(..))")
 	public void print(JoinPoint joinPoint) {
-		logger.info("Méthode exécutée : {}", joinPoint.getSignature().getName());
+		logger.info("Méthode exécutée : {} de la classe {}", 
+				joinPoint.getSignature().getName(),
+				joinPoint.getTarget().getClass().getSimpleName());
 	}
 	
 }
