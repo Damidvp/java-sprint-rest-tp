@@ -1,7 +1,5 @@
 package fr.diginamic.rest.exceptions;
 
-import java.time.LocalDateTime;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,7 +18,6 @@ public class ExceptionHandlerControllerAdvice {
 	public ErrorDto handleExceptionNotFound(Exception exception, WebRequest request) {
 		exception.printStackTrace();
 		return new ErrorDto(
-				LocalDateTime.now(),
 				"Entité non trouvée",
 				request.getDescription(false)
 			);
@@ -31,7 +28,6 @@ public class ExceptionHandlerControllerAdvice {
 	public ErrorDto handleExceptionCreateHasId(Exception exception, WebRequest request) {
 		exception.printStackTrace();
 		return new ErrorDto(
-				LocalDateTime.now(),
 				"Entité créée a un ID",
 				request.getDescription(false)
 			);
@@ -43,7 +39,6 @@ public class ExceptionHandlerControllerAdvice {
 	public InvalidEntityErrorDto handleExceptionArgumentNotValid(MethodArgumentNotValidException exception, WebRequest request) {
 		exception.printStackTrace();
 		return new InvalidEntityErrorDto(
-				LocalDateTime.now(),
 				"Un ou plusieurs arguments invalides",
 				request.getDescription(false),
 				exception.getBindingResult().getGlobalErrors(),

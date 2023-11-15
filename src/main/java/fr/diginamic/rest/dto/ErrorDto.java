@@ -8,8 +8,8 @@ public class ErrorDto {
 	private final String reasonError;
 	private final String urlError;
 	
-	public ErrorDto(LocalDateTime dateTimeError, String reasonError, String urlError) {
-		this.dateTimeError = dateTimeError;
+	public ErrorDto(String reasonError, String urlError) {
+		this.dateTimeError = LocalDateTime.now();
 		this.reasonError = reasonError;
 		this.urlError = urlError;
 	}
