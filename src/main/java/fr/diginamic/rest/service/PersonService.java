@@ -44,6 +44,10 @@ public class PersonService {
 		return this.personRepo.findById(id).orElseThrow(EntityNotFoundException::new);
 	}
 	
+	public boolean existsById(Integer id) {
+		return this.personRepo.existsById(id);
+	}
+	
 	public void delete(@Valid Person deletedPerson) {
 		this.personRepo.delete(deletedPerson);
 	}

@@ -66,7 +66,7 @@ public class AnimalController {
 	
 	@PutMapping
 	public ResponseEntity<Object> updateAnimal(@Valid @RequestBody Animal animalItem) {
-		if(animalItem.getId() == null || animalItem.getId() < 0) {
+		if(animalItem.getId() == null || animalItem.getId() < 0 || !this.animalService.existsById(animalItem.getId())) {
 			//return new ResponseEntity<>("Erreur : ID renseigné invalide !", HttpStatus.BAD_REQUEST);
 			throw new EntityToUpdateHasNoIdException();
 		}
@@ -76,7 +76,7 @@ public class AnimalController {
 	
 	@DeleteMapping
 	public void deleteAnimal(@Valid @RequestBody Animal animalItem) {
-		if(animalItem.getId() == null) {
+		if(animalItem.getId() == null || !this.animalService.existsById(animalItem.getId())) {
 			throw new EntityNotFoundException();
 		}
 		this.animalService.delete(animalItem);

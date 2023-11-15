@@ -38,6 +38,10 @@ public class SpeciesService {
 		return this.speciesRepo.findById(id).orElseThrow(EntityNotFoundException::new);
 	}
 	
+	public boolean existsById(Integer id) {
+		return this.speciesRepo.existsById(id);
+	}
+	
 	public void delete(@Valid Species deletedSpecies) {
 		this.speciesRepo.delete(deletedSpecies);
 	}

@@ -44,6 +44,10 @@ public class AnimalService {
 		return this.animalRepo.findById(id).orElseThrow(EntityNotFoundException::new);
 	}
 	
+	public boolean existsById(Integer id) {
+		return this.animalRepo.existsById(id);
+	}
+	
 	public void delete(@Valid Animal deletedAnimal) {
 		this.animalRepo.delete(deletedAnimal);
 	}

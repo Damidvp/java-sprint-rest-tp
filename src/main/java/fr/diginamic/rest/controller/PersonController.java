@@ -66,7 +66,7 @@ public class PersonController {
 	
 	@PutMapping
 	public ResponseEntity<Object> updatePerson(@Valid @RequestBody Person personItem) {
-		if(personItem.getId() == null || personItem.getId() < 0) {
+		if(personItem.getId() == null || personItem.getId() < 0 || !this.personService.existsById(personItem.getId())) {
 			//return new ResponseEntity<>("Erreur : ID renseigné invalide !", HttpStatus.BAD_REQUEST);
 			throw new EntityToUpdateHasNoIdException();
 		}
@@ -76,7 +76,7 @@ public class PersonController {
 	
 	@DeleteMapping
 	public void deletePerson(@Valid @RequestBody Person personItem) {
-		if(personItem.getId() == null) {
+		if(personItem.getId() == null || !this.personService.existsById(personItem.getId())) {
 			throw new EntityNotFoundException();
 		}
 		this.personService.delete(personItem);

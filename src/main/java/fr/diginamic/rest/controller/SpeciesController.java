@@ -66,7 +66,7 @@ public class SpeciesController {
 	
 	@PutMapping
 	public ResponseEntity<Object> updateSpecies(@Valid @RequestBody Species speciesItem) {
-		if(speciesItem.getId() == null || speciesItem.getId() < 0) {
+		if(speciesItem.getId() == null || speciesItem.getId() < 0 || !this.speciesService.existsById(speciesItem.getId())) {
 			//return new ResponseEntity<>("Erreur : ID renseigné invalide !", HttpStatus.BAD_REQUEST);
 			throw new EntityToUpdateHasNoIdException();
 		}
@@ -76,7 +76,7 @@ public class SpeciesController {
 	
 	@DeleteMapping
 	public void deleteSpecies(@Valid @RequestBody Species speciesItem) {
-		if(speciesItem.getId() == null) {
+		if(speciesItem.getId() == null || !this.speciesService.existsById(speciesItem.getId())) {
 			throw new EntityNotFoundException();
 		}
 		this.speciesService.delete(speciesItem);
